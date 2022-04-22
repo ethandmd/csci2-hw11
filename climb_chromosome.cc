@@ -20,7 +20,13 @@ ClimbChromosome::mutate() {
     order_[(rand_pt -1) % ORDER_SIZE] = p;
     assert(is_valid());
     double second_fitness = get_fitness();
-    Cities::permutation_t second_order(order_);
+    
+
+    if (second_fitness < base_fitness) {
+        order_ = base_order;
+    } 
+    auto bestOrder = order_;
+    auto bestFitness = get_fitness();
 
     //Step 4: Swap p and p+1.
     order_ = base_order;
@@ -28,20 +34,9 @@ ClimbChromosome::mutate() {
     order_[(rand_pt + 1) % ORDER_SIZE] = p;
     assert(is_valid());
     double third_fitness = get_fitness();
-    Cities::permutation_t third_order(order_);
 
-    //Step 5: Choose best fitness as mutated Chromosome.
-    //auto best_order = std::max(base_fitness, ...
-
-    if (base_fitness >= second_fitness) {
-        if (base_fitness >= third_fitness) {
-            order_ = base_order;
-        } else if (base_fitness < third_fitness) {
-            order_ = third_order;
-        }
-    } else if (third_fitness >= second_fitness) {
-        order_ = third_order;
-    } else {
-        order_ = second_order;
+    if (third_fitness < bestFitness){
+        order_ = bestOrder;
     }
 }
+
