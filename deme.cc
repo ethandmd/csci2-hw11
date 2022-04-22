@@ -3,8 +3,12 @@
  * travelling-salesperson problem.  A deme is a population of individuals.
  */
 
-#include "chromosome.hh"
 #include "deme.hh"
+#include <numeric>
+#include <random>
+#include <chrono>
+#include <cassert>
+#include <iostream>
 
 // Generate a Deme of the specified size with all-random chromosomes.
 // Also receives a mutation rate in the range [0-1].
@@ -12,7 +16,7 @@ Deme::Deme(const Cities* cities_ptr, unsigned pop_size, double mut_rate)
   : mut_rate_(mut_rate)
 {
   for (unsigned i = 0; i < pop_size; i++){
-    pop_.push_back(new Chromosome(cities_ptr));
+    pop_.push_back(new ClimbChromosome(cities_ptr));
   }
   unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
   generator_ = std::default_random_engine(seed);
