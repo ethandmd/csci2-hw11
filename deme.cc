@@ -4,6 +4,7 @@
  */
 
 #include "deme.hh"
+#include <algorithm>
 #include <numeric>
 #include <random>
 #include <chrono>
@@ -16,7 +17,7 @@ Deme::Deme(const Cities* cities_ptr, unsigned pop_size, double mut_rate)
   : mut_rate_(mut_rate)
 {
   for (unsigned i = 0; i < pop_size; i++){
-    pop_.push_back(new ClimbChromosome(cities_ptr));
+    pop_.push_back(new Chromosome(cities_ptr));
   }
   unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
   generator_ = std::default_random_engine(seed);

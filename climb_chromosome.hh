@@ -13,14 +13,15 @@ class ClimbChromosome : public Chromosome {
     {
         //Need to create new protected copy constructor for climb 
         //Allocates new memory.
-        auto clone = new ClimbChromosome(cities_ptr_);
-        clone = this;
-        return clone;
+        //auto clone = new ClimbChromosome(cities_ptr_);
+        //clone = this;
+        //return clone;
+        return new ClimbChromosome(*this);
     }
 
     virtual void mutate() override;
 
     protected:
-    ClimbChromosome& operator=(const ClimbChromosome&) = default;
+    ClimbChromosome(const ClimbChromosome&) = default;
 
 };

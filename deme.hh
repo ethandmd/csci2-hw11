@@ -5,13 +5,9 @@
 
 #pragma once
 
-#include "climb_chromosome.hh"
+#include "chromosome.hh"
 #include "cities.hh"
-#include <numeric>
-#include <random>
-#include <chrono>
-#include <cassert>
-#include <iostream>
+
 
 class Deme {
  public:
