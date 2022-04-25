@@ -1,8 +1,8 @@
+#pragma once
 #include "chromosome.hh"
 
 class ClimbChromosome : public Chromosome {
     public:    
-    
     ClimbChromosome(const Cities* cities_ptr)
         : Chromosome(cities_ptr)
         {}
@@ -13,9 +13,6 @@ class ClimbChromosome : public Chromosome {
     {
         //Need to create new protected copy constructor for climb 
         //Allocates new memory.
-        //auto clone = new ClimbChromosome(cities_ptr_);
-        //clone = this;
-        //return clone;
         return new ClimbChromosome(*this);
     }
 
@@ -23,5 +20,4 @@ class ClimbChromosome : public Chromosome {
 
     protected:
     ClimbChromosome(const ClimbChromosome&) = default;
-
 };
