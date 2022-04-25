@@ -38,5 +38,5 @@ ClimbChromosome::mutate() {
     if (third_fitness < bestFitness){
         order_ = bestOrder;
     }
-}
+} 
 

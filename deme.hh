@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "climb_chromosome.cc"
+#include "climb_chromosome.hh"
 #include "cities.hh"
 
 
@@ -28,17 +28,17 @@ class Deme {
   virtual void compute_next_generation();
 
   // Return a pointer to the chromosome with the highest fitness.
-  const ClimbChromosome* get_best() const;
+  const Chromosome* get_best() const;
   //const Chromosome* get_beset() const;
 
  protected:
   // Randomly select a chromosome in the population based on fitness and
   // return a pointer to that chromosome.
-  virtual ClimbChromosome* select_parent();
+  virtual Chromosome* select_parent();
   //virtual Chromosome* select_parent();
 
-  std::vector<ClimbChromosome*> pop_;  // Population of ClimbChromosomes
+  std::vector<Chromosome*> pop_;  // Population of ClimbChromosomes
   double mut_rate_;  // Mutation rate (fraction in range [0,1])
 
   std::default_random_engine generator_; // A random number generator for the various methods
-};
+}; 

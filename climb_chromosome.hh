@@ -18,6 +18,6 @@ class ClimbChromosome : public Chromosome {
 
     virtual void mutate() override;
 
-    protected:
+    protected: 
     ClimbChromosome(const ClimbChromosome&) = default;
 };
