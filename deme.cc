@@ -17,7 +17,7 @@ Deme::Deme(const Cities* cities_ptr, unsigned pop_size, double mut_rate)
   : mut_rate_(mut_rate)
 {
   for (unsigned i = 0; i < pop_size; i++){
-    pop_.push_back(new Chromosome(cities_ptr));
+    pop_.push_back(new ClimbChromosome(cities_ptr));
   }
   unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
   generator_ = std::default_random_engine(seed);
@@ -40,11 +40,12 @@ Deme::~Deme()
 // After we've generated pop_size new chromosomes, we delete all the old ones.
 void Deme::compute_next_generation()
 {
-  std::vector<std::pair<Chromosome*, Chromosome*>> chromosome_storage;
+  // std::vector<std::pair<ClimbChromosome*, ClimbChromosome*>> chromosome_storage;
   std::uniform_real_distribution<double> distribution(0.0,1.0);
   for (std::size_t i = 0; i < pop_.size()/2; i++) {
     //Step 1: Select two parents.
-    Chromosome* p1 = select_parent(); Chromosome* p2 = select_parent();
+    ClimbChromosome* p1 = select_parent(); 
+    ClimbChromosome* p2 = select_parent();
     //Step 2: Mutate or not.
     auto mutate1 = (distribution(generator_) < mut_rate_);
     if (mutate1) {
@@ -55,29 +56,29 @@ void Deme::compute_next_generation()
       p2->mutate();
     }
     //Step 3: Recombine parents. Store children.
-    chromosome_storage.push_back(p1->recombine(p2));
-  }
+    //chromosome_storage.push_back(p1->recombine(p2));
+ }
 
   //Step 4: Replace parents.
-  for (auto i : pop_) {
-    delete i;
-  }
-  pop_.clear();
-  for (auto i : chromosome_storage) {
-    pop_.push_back(i.first);
-    pop_.push_back(i.second);
-  }
+  // for (auto i : pop_) {
+  //   delete i;
+  // }
+  // pop_.clear();
+  // for (auto i : chromosome_storage) {
+  //   pop_.push_back(i.first);
+  //   pop_.push_back(i.second);
+  // }
 }
 
 //Functor comparison object for best fitness.
 struct compare_fitness {
-  bool operator() (const Chromosome* p1, const Chromosome* p2) {
+  bool operator() (const ClimbChromosome* p1, const ClimbChromosome* p2) {
     return p1->get_fitness() < p2->get_fitness();
   }
 }fit_cmp;
 
 // Return a copy of the chromosome with the highest fitness.
-const Chromosome* Deme::get_best() const
+const ClimbChromosome* Deme::get_best() const
 {
   //Dereference iterator of max element based on fitness.
   return *std::max_element(pop_.cbegin(), pop_.cend(), fit_cmp);
@@ -85,11 +86,11 @@ const Chromosome* Deme::get_best() const
 
 // Randomly select a chromosome in the population based on fitness and
 // return a pointer to that chromosome.
-Chromosome* Deme::select_parent()
+ClimbChromosome* Deme::select_parent()
 {
   int POP_SIZE = pop_.size();
   //Find total population fitness.
-  auto sum_fitness = [](double sum, const Chromosome* c) { return sum + c->get_fitness(); };
+  auto sum_fitness = [](double sum, const ClimbChromosome* c) { return sum + c->get_fitness(); };
   double totalFitness = std::accumulate(pop_.begin(), pop_.end(), 0.0, sum_fitness);
 
   //Create table of probabilities for each vector. Maintaining vector order is critical. Could also use a std::map...
