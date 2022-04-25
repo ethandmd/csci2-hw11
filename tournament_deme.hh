@@ -10,5 +10,5 @@ class TournamentDeme : public Deme {
 
     protected:
     //virtual Chromosome* select_parent() override;
-    virtual ClimbChromosome* select_parent() const override;
+    virtual ClimbChromosome* select_parent() override;
 };
