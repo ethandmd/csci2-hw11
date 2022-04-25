@@ -9,7 +9,7 @@ class ClimbChromosome : public Chromosome {
     
     virtual ~ClimbChromosome() = default;
 
-    virtual ClimbChromosome* clone() const override
+    virtual Chromosome* clone() const override
     {
         //Need to create new protected copy constructor for climb 
         //Allocates new memory.
@@ -20,4 +20,6 @@ class ClimbChromosome : public Chromosome {
 
     protected: 
     ClimbChromosome(const ClimbChromosome&) = default;
+    ClimbChromosome(ClimbChromosome&&) = default;
+
 };
