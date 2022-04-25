@@ -9,6 +9,5 @@ class TournamentDeme : public Deme {
     virtual ~TournamentDeme() = default;
 
     protected:
-    //virtual Chromosome* select_parent() override;
-    virtual ClimbChromosome* select_parent() override;
+    virtual Chromosome* select_parent() override;
 };
