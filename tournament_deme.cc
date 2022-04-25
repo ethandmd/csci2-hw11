@@ -24,25 +24,27 @@ TournamentDeme::select_parent() {
     std::iota(cmp_idx.begin(), cmp_idx.end(), 0);
     std::shuffle(cmp_idx.begin(), cmp_idx.end(), generator_);
     std::queue<unsigned> bracket;
-    for (unsigned i = 0; i < P; i++) {
+    for (unsigned i = 0; i < P; i++) {      //Fill FIFO queue.
         bracket.push(cmp_idx[i]);
     }
-    assert(bracket.size() == P);
+    assert(bracket.size() == P);        //Sanity check.
 
     //Compare pairs of chromosomes until bracket has one element.
-    //Bracket is guaranteed to have one element since it is a power of 2.
+    //Bracket is guaranteed to have one element when finished running
+    //since its size is a power of 2.
     while (bracket.size() > 1) {
-        auto first = bracket.front();
-        bracket.pop();
-        auto second = bracket.front();
-        bracket.pop();
+        auto first = bracket.front();   //Reference to first element in queue.
+        bracket.pop();                  //Remove first item.
+        auto second = bracket.front();  //Reference to second element in queue.
+        bracket.pop();                  //Remove second item.
 
+        //Enqueue the chromosome with better fitness.
         if (pop_[first]->get_fitness() > pop_[second]->get_fitness()) {
             bracket.push(first);
         } else {
             bracket.push(second);
         }
     }
-    assert(bracket.size() == 1);
-    return pop_[bracket.front()];
+    assert(bracket.size() == 1);    //Sanity check.
+    return pop_[bracket.front()];   //Return the winning chromosome!
 }
