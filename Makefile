@@ -8,10 +8,10 @@ all:  test_chromo test_deme tsp
 test_chromo: chromosome.o test_chromosome.o cities.o
 	$(CXX) $(LDFLAGS) -o $@ $^
 
-test_deme: chromosome.o cities.o deme.o test_deme.o
+test_deme: chromosome.o climb_chromosome.o cities.o deme.o test_deme.o
 	$(CXX) $(LDFLAGS) -o $@ $^
 
-tsp: tsp.o climb_chromosome.o chromosome.o deme.o cities.o
+tsp: tsp.o chromosome.o climb_chromosome.o deme.o cities.o
 	$(CXX) $(LDFLAGS) -o $@ $^
 
 %.o: %.cc %.hh
