@@ -1,5 +1,5 @@
 CXX=g++-9
-CXXFLAGS=-Wall -Wextra -pedantic -std=c++17 -O0 -g
+CXXFLAGS=-Wall -Wextra -pedantic -std=c++17 -O3 -g
 LDFLAGS=$(CXXFLAGS)
 OBJ=$(SRC:.cc=.o)
 
